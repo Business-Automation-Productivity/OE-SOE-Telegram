@@ -1,0 +1,24 @@
+##  bot_father
+
+🚀 Telegram Bot Deployment Checklist
+
+1. Telegram Side
+BotFather: Get API_TOKEN.
+Channel/Group: Add your bot as an Administrator.
+Permissions: Ensure "Post Messages" is enabled for the bot.
+Chat ID: Must start with -100 (e.g., -1003316477673).
+
+2. GitHub Secrets (Settings > Secrets > Actions)
+Set these two keys exactly:
+TELEGRAM_TOKEN: (Your Bot Token)
+CHAT_ID: (Your ID starting with -100)
+
+3. Folder Structure
+Ensure your video is inside the folder you named in your script:
+Folder: poster/ (Check for lowercase/plural typos)
+File: poster_a.MP4 (Must match the extension .MP4 or .mp4 exactly)
+
+4. Troubleshooting Fixes
+Error 400 (Chat not found): Usually means you forgot the -100 in the CHAT_ID or the bot isn't an Admin.
+File Not Found: Linux is case-sensitive! Poster is not the same as poster.
+Size Limit: Keep videos under 50MB for standard bot uploads.
