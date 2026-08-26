@@ -1,0 +1,50 @@
+name: live_Scheduled and Manual 
+
+on:
+  schedule:
+    - cron: '01 20 * * *'  # 4:30 AM MYT (Poster A)
+    - cron: '00 04 * * *'    # 2:00 PM MYT (Poster A)
+    - cron: '30 11 * * *'  # 10:00 PM MYT (Poster B)
+  workflow_dispatch:      # This is for your manual testing
+
+jobs:
+  post-video:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install pyTelegramBotAPI
+
+      - name: Run Poster A
+        # Run if it's the 5am/12pm schedule OR if you clicked "Run workflow" manually
+        if: |
+          github.event.schedule == '01 20 * * *' ||
+          github.event.schedule == '00 04 * * *'
+        # github.event_name == 'workflow_dispatch'
+
+        env:
+          TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
+          CHAT_ID: ${{ secrets.CHAT_ID }}
+        run: python bot2.py POSTER_A
+
+      - name: Run Poster B
+        # Run if it's the 9pm schedule OR if you clicked "Run workflow" manually
+        if: |
+          github.event.schedule == '30 11 * * *'
+        # github.event_name == 'workflow_dispatch'
+        env:
+          TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
+          CHAT_ID: ${{ secrets.CHAT_ID }}
+        run: python bot2.py POSTER_B
+
+        #previous
+        # 01 20 : 5.18am
+        # 00 04 : 3.15pm
+        # 30 12 : 11.57pm
