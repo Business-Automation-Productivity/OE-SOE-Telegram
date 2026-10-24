@@ -4,10 +4,10 @@ on:
   workflow_dispatch:
     inputs:
       poster:
-        description: 'Poster'
+        description: 'Poster (LIST = senarai message_id)'
         type: choice
-        options: [POSTER_A, POSTER_B]
-        default: POSTER_A
+        options: [POSTER_A, POSTER_B, LIST]
+        default: LIST
       target:
         description: 'Destinasi (test = selamat)'
         type: choice
@@ -38,4 +38,5 @@ jobs:
         env:
           TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
           CHAT_ID: ${{ inputs.target == 'live' && secrets.CHAT_ID || secrets.CHAT_ID_TEST }}
-        run: python bot2.py ${{ inputs.poster }}
+          SOURCE_CHAT_ID: ${{ secrets.CHAT_ID_TEST }}
+        run: python copy_poster.py ${{ inputs.poster }}
