@@ -20,6 +20,8 @@ def list_posts():
         return
     for u in ups:
         m = u.channel_post
+        if m is None:
+            continue
         kind = "video" if m.video else m.content_type
         dur = m.video.duration if m.video else "-"
         print(f"chat={m.chat.id} message_id={m.message_id} jenis={kind} tempoh={dur}s")
