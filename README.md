@@ -2,7 +2,6 @@ This is Telegram The HUB Channel auto posting based on time schedule.
 Please see instruction.txt for more information.
 
 
-
 -----ID Workflow----
 {
   "total_count": 1,
@@ -21,3 +20,8 @@ Please see instruction.txt for more information.
     }
   ]
 }
+
+
+----- URL cron-jobe---
+
+POST https://api.github.com/repos/Business-Automation-Productivity/OE-SOE-Telegram/actions/workflows/342721641/dispatches
